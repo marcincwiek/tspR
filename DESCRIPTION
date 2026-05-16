@@ -21,3 +21,5 @@ Suggests:
     tidygeocoder,
     testthat (>= 3.0.0)
 Config/roxygen2/version: 8.0.0
+URL: https://github.com/marcincwiek/tspR
+BugReports: https://github.com/marcincwiek/tspR/issues
