@@ -1,0 +1,23 @@
+Package: tspR
+Title: TSP Route Optimization Tool
+Version: 0.1.0
+Authors@R:
+    person("Your", "Name", email = "you@email.com", role = c("aut", "cre"))
+Description: Solves the Traveling Salesman Problem using multiple algorithms
+    (nearest neighbour, 2-opt, simulated annealing) with an interactive
+    Shiny dashboard for visualising optimised geographic routes.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports:
+    R6 (>= 2.5.0),
+    Rcpp (>= 1.0.0)
+LinkingTo:
+    Rcpp
+Suggests:
+    shiny (>= 1.7.0),
+    leaflet,
+    bslib,
+    tidygeocoder,
+    testthat (>= 3.0.0)
+Config/roxygen2/version: 8.0.0
