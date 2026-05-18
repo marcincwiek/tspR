@@ -89,9 +89,7 @@ summary.tsp_route <- function(object, ...) {
 #' @export
 plot.tsp_route <- function(x, ...) {
   locs  <- x$loc_set$locations
-  # Close the loop: repeat first city at the end so the line joins back up
-  order  <- names[x$tour]
-  route <- locs[order, ]
+  route <- locs[x$tour, ]   # ordered rows, no return leg
 
   plot(
     locs$lng, locs$lat,
@@ -109,7 +107,6 @@ plot.tsp_route <- function(x, ...) {
     pos = 3, cex = 0.8, col = "gray30"
   )
 
-  # Mark start city with a green square so it's easy to spot
   points(
     locs$lng[x$tour[1]], locs$lat[x$tour[1]],
     pch = 15, col = "green3", cex = 1.8

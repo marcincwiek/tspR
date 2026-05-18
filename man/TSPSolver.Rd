@@ -4,27 +4,13 @@
 \alias{TSPSolver}
 \title{TSP Solver}
 \description{
-An R6 class that wraps all TSP algorithms behind a single consistent
-interface. Load locations once, then switch between algorithms freely
-using \code{set_algorithm()} and call \code{solve()} to get a result.
-}
-\examples{
-df <- data.frame(
-  name = c("Warsaw", "Paris", "London", "Berlin", "Amsterdam"),
-  lat  = c(52.23, 48.85, 51.51, 52.52, 52.37),
-  lng  = c(21.01,  2.35, -0.12, 13.40,  4.90)
-)
-solver <- TSPSolver$new(df)
-solver$set_algorithm("nn+2opt")
-route  <- solver$solve()
-print(route)
+R6 class that solves the Traveling Salesman Problem using the
+Nearest Neighbour heuristic followed by 2-opt local search improvement.
 }
 \section{Active bindings}{
   \if{html}{\out{<div class="r6-active-bindings">}}
   \describe{
-    \item{\code{n_locations}}{Number of locations currently loaded (read-only).}
-
-    \item{\code{algorithm}}{Currently selected algorithm name (read-only).}
+    \item{\code{n_locations}}{Number of loaded locations (read-only).}
 
     \item{\code{locations}}{The loaded LocationSet (read-only).}
   }
@@ -34,9 +20,7 @@ print(route)
 \subsection{Public methods}{
   \itemize{
     \item \href{#method-TSPSolver-initialize}{\code{TSPSolver$new()}}
-    \item \href{#method-TSPSolver-set_algorithm}{\code{TSPSolver$set_algorithm()}}
     \item \href{#method-TSPSolver-solve}{\code{TSPSolver$solve()}}
-    \item \href{#method-TSPSolver-benchmark}{\code{TSPSolver$benchmark()}}
     \item \href{#method-TSPSolver-print}{\code{TSPSolver$print()}}
     \item \href{#method-TSPSolver-clone}{\code{TSPSolver$clone()}}
   }
@@ -45,7 +29,7 @@ print(route)
 \if{html}{\out{<a id="method-TSPSolver-initialize"></a>}}
 \if{latex}{\out{\hypertarget{method-TSPSolver-initialize}{}}}
 \subsection{\code{TSPSolver$new()}}{
-  Create a new TSPSolver and load locations.
+  Load locations and precompute distance matrix.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{TSPSolver$new(df)}
@@ -61,32 +45,10 @@ print(route)
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TSPSolver-set_algorithm"></a>}}
-\if{latex}{\out{\hypertarget{method-TSPSolver-set_algorithm}{}}}
-\subsection{\code{TSPSolver$set_algorithm()}}{
-  Set the solving algorithm and any extra parameters.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{TSPSolver$set_algorithm(algo, ...)}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Arguments}{
-    \if{html}{\out{<div class="arguments">}}
-    \describe{
-      \item{\code{algo}}{One of: \code{"nn"}, \code{"two_opt"},
-\code{"nn+2opt"}, \code{"sa"}.}
-      \item{\code{...}}{Extra parameters forwarded to the algorithm.
-For \code{"sa"}: \code{temp}, \code{cooling}, \code{iterations}.}
-    }
-    \if{html}{\out{</div>}}
-  }
-}
-
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TSPSolver-solve"></a>}}
 \if{latex}{\out{\hypertarget{method-TSPSolver-solve}{}}}
 \subsection{\code{TSPSolver$solve()}}{
-  Solve the TSP with the selected algorithm.
+  Solve using Nearest Neighbour + 2-opt improvement.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{TSPSolver$solve()}
@@ -98,26 +60,10 @@ For \code{"sa"}: \code{temp}, \code{cooling}, \code{iterations}.}
 }
 
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-TSPSolver-benchmark"></a>}}
-\if{latex}{\out{\hypertarget{method-TSPSolver-benchmark}{}}}
-\subsection{\code{TSPSolver$benchmark()}}{
-  Run all algorithms and return a comparison data frame.
-Useful for demonstrating performance differences between algorithms.
-  \subsection{Usage}{
-    \if{html}{\out{<div class="r">}}
-    \preformatted{TSPSolver$benchmark()}
-    \if{html}{\out{</div>}}
-  }
-  \subsection{Returns}{
-    Data frame with columns: algorithm, distance, elapsed.
-  }
-}
-
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-TSPSolver-print"></a>}}
 \if{latex}{\out{\hypertarget{method-TSPSolver-print}{}}}
 \subsection{\code{TSPSolver$print()}}{
-  Print the solver's current state.
+  Print solver state.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{TSPSolver$print(...)}

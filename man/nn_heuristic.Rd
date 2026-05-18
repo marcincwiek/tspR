@@ -12,19 +12,9 @@ nn_heuristic(dist_mat, start = 1L)
 \item{start}{Integer. Starting city index, 1-indexed (default 1).}
 }
 \value{
-Integer vector: city visit order, 1-indexed, length n.
+Integer vector: city visit order, 1-indexed.
 }
 \description{
-Builds an initial tour greedily: starting from \code{start}, always moves
-to the closest unvisited city. Fast O(n^2) construction heuristic.
-The inner loop is implemented in C++ via \code{nn_heuristic_cpp()}.
-}
-\examples{
-df <- data.frame(
-  name = c("Warsaw", "Paris", "London"),
-  lat  = c(52.23, 48.85, 51.51),
-  lng  = c(21.01,  2.35,  -0.12)
-)
-dm <- haversine_matrix(df$lat, df$lng)
-nn_heuristic(dm)
+Builds a tour greedily: always moves to the closest unvisited city.
+Implemented in C++ via \code{nn_heuristic_cpp()}.
 }

@@ -12,21 +12,9 @@ two_opt(tour, dist_mat)
 \item{dist_mat}{Numeric n x n distance matrix.}
 }
 \value{
-Improved integer tour vector (1-indexed).
+Improved integer tour vector.
 }
 \description{
-Iteratively improves a tour by trying all pairs of edge swaps.
-If reversing the segment between edges (i, i+1) and (j, j+1) reduces
-total distance, the swap is applied. Repeats until no improvement exists.
-The inner loop is implemented in C++ via \code{two_opt_cpp()}.
-}
-\examples{
-df <- data.frame(
-  name = c("Warsaw", "Paris", "London"),
-  lat  = c(52.23, 48.85, 51.51),
-  lng  = c(21.01,  2.35,  -0.12)
-)
-dm   <- haversine_matrix(df$lat, df$lng)
-tour <- nn_heuristic(dm)
-two_opt(tour, dm)
+Improves a tour by trying all edge swap pairs. Implemented in C++
+via \code{two_opt_cpp()}.
 }
