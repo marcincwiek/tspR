@@ -10,18 +10,6 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// haversine_matrix_cpp
-NumericMatrix haversine_matrix_cpp(NumericVector lat, NumericVector lng);
-RcppExport SEXP _tspR_haversine_matrix_cpp(SEXP latSEXP, SEXP lngSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type lat(latSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lng(lngSEXP);
-    rcpp_result_gen = Rcpp::wrap(haversine_matrix_cpp(lat, lng));
-    return rcpp_result_gen;
-END_RCPP
-}
 // nn_heuristic_cpp
 IntegerVector nn_heuristic_cpp(NumericMatrix dist_mat, int start);
 RcppExport SEXP _tspR_nn_heuristic_cpp(SEXP dist_matSEXP, SEXP startSEXP) {
@@ -48,7 +36,6 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_tspR_haversine_matrix_cpp", (DL_FUNC) &_tspR_haversine_matrix_cpp, 2},
     {"_tspR_nn_heuristic_cpp", (DL_FUNC) &_tspR_nn_heuristic_cpp, 2},
     {"_tspR_two_opt_cpp", (DL_FUNC) &_tspR_two_opt_cpp, 2},
     {NULL, NULL, 0}

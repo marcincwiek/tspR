@@ -1,5 +1,3 @@
-# solver.R — R6 TSPSolver class
-
 #' @importFrom R6 R6Class
 NULL
 
@@ -7,8 +5,18 @@ NULL
 #'
 #' R6 class that solves the Traveling Salesman Problem using the
 #' Nearest Neighbour heuristic followed by 2-opt local search improvement.
+#' Both algorithms are implemented in C++ via Rcpp.
 #'
 #' @export
+#' @examples
+#' df <- data.frame(
+#'   name = c("Warsaw", "Paris", "London", "Berlin"),
+#'   lat  = c(52.23, 48.85, 51.51, 52.52),
+#'   lng  = c(21.01,  2.35, -0.12, 13.40)
+#' )
+#' solver <- TSPSolver$new(df)
+#' route  <- solver$solve()
+#' print(route)
 TSPSolver <- R6::R6Class(
   classname = "TSPSolver",
 
@@ -33,7 +41,8 @@ TSPSolver <- R6::R6Class(
 
   public = list(
 
-    #' @description Load locations and precompute distance matrix.
+    #' @description
+    #' Load locations and precompute the distance matrix.
     #' @param df Data frame with columns: name, lat, lng.
     initialize = function(df) {
       validate_location_df(df, min_n = 2L)
@@ -45,7 +54,7 @@ TSPSolver <- R6::R6Class(
     },
 
     #' @description
-    #' Solve using Nearest Neighbour + 2-opt improvement.
+    #' Solve the TSP using Nearest Neighbour + 2-opt (both in C++).
     #' @return A \code{tsp_route} object.
     solve = function() {
       if (is.null(private$.locations)) {
@@ -55,11 +64,11 @@ TSPSolver <- R6::R6Class(
       dm <- private$.dist_mat
       t0 <- proc.time()[["elapsed"]]
 
-      # Step 1: build initial tour greedily (C++)
-      tour <- nn_heuristic(dm)
+      # Step 1 — build initial tour greedily (C++)
+      tour <- nn_heuristic_cpp(dm, 1L)
 
-      # Step 2: improve with 2-opt local search (C++)
-      tour <- two_opt(tour, dm)
+      # Step 2 — improve with 2-opt local search (C++)
+      tour <- two_opt_cpp(as.integer(tour), dm)
 
       elapsed <- proc.time()[["elapsed"]] - t0
 

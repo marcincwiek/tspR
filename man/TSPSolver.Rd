@@ -6,6 +6,17 @@
 \description{
 R6 class that solves the Traveling Salesman Problem using the
 Nearest Neighbour heuristic followed by 2-opt local search improvement.
+Both algorithms are implemented in C++ via Rcpp.
+}
+\examples{
+df <- data.frame(
+  name = c("Warsaw", "Paris", "London", "Berlin"),
+  lat  = c(52.23, 48.85, 51.51, 52.52),
+  lng  = c(21.01,  2.35, -0.12, 13.40)
+)
+solver <- TSPSolver$new(df)
+route  <- solver$solve()
+print(route)
 }
 \section{Active bindings}{
   \if{html}{\out{<div class="r6-active-bindings">}}
@@ -29,7 +40,7 @@ Nearest Neighbour heuristic followed by 2-opt local search improvement.
 \if{html}{\out{<a id="method-TSPSolver-initialize"></a>}}
 \if{latex}{\out{\hypertarget{method-TSPSolver-initialize}{}}}
 \subsection{\code{TSPSolver$new()}}{
-  Load locations and precompute distance matrix.
+  Load locations and precompute the distance matrix.
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{TSPSolver$new(df)}
@@ -48,7 +59,7 @@ Nearest Neighbour heuristic followed by 2-opt local search improvement.
 \if{html}{\out{<a id="method-TSPSolver-solve"></a>}}
 \if{latex}{\out{\hypertarget{method-TSPSolver-solve}{}}}
 \subsection{\code{TSPSolver$solve()}}{
-  Solve using Nearest Neighbour + 2-opt improvement.
+  Solve the TSP using Nearest Neighbour + 2-opt (both in C++).
   \subsection{Usage}{
     \if{html}{\out{<div class="r">}}
     \preformatted{TSPSolver$solve()}
