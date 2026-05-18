@@ -168,7 +168,7 @@ server <- function(input, output, session) {
 
     # Draw optimised route on map as a polyline
     r       <- route_rv()
-    ordered <- r$loc_set$locations[c(r$tour, r$tour[1]), ]
+    ordered <- r$loc_set$locations[r$tour, ]
 
     leafletProxy("map") %>%
       clearShapes() %>%

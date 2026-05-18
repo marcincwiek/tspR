@@ -79,8 +79,8 @@ tour_distance <- function(tour, dist_mat) {
   }
 
   n    <- length(tour)
-  from <- tour
-  to   <- c(tour[-1], tour[1])      # shift by one position; wraps last → first
+  from <- tour[-length(tour)]
+  to   <- tour[-1]
 
   # cbind(from, to) creates a 2-column index matrix.
   # dist_mat[cbind(from, to)] extracts one element per row — fully vectorised.

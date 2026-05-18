@@ -38,7 +38,7 @@ new_tsp_route <- function(tour, loc_set, dist_mat, algorithm, elapsed) {
 print.tsp_route <- function(x, ...) {
   names  <- x$loc_set$locations$name
   # Build the route string: A -> B -> C -> A (closed loop)
-  order  <- c(names[x$tour], names[x$tour[1]])
+  order  <- names[x$tour]
   cat("=== TSP Solution ===\n")
   cat("Algorithm :", x$algorithm, "\n")
   cat("Distance  :", round(x$distance, 2), "km\n")
@@ -65,9 +65,9 @@ summary.tsp_route <- function(object, ...) {
   cat(sprintf("%-30s  %8s\n", "Leg", "km"))
   cat(strrep("-", 40), "\n")
 
-  for (i in seq_len(n)) {
+  for (i in seq_len(n - 1)) {
     from  <- tour[i]
-    to    <- tour[if (i < n) i + 1L else 1L]   # wrap last city back to first
+    to    <- tour[i + 1L]
     d     <- object$dist_mat[from, to]
     label <- paste(locs$name[from], "->", locs$name[to])
     cat(sprintf("%-30s  %8.2f\n", label, d))
@@ -90,7 +90,7 @@ summary.tsp_route <- function(object, ...) {
 plot.tsp_route <- function(x, ...) {
   locs  <- x$loc_set$locations
   # Close the loop: repeat first city at the end so the line joins back up
-  order <- c(x$tour, x$tour[1])
+  order  <- names[x$tour]
   route <- locs[order, ]
 
   plot(
