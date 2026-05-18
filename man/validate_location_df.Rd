@@ -2,7 +2,7 @@
 % Please edit documentation in R/validators.R
 \name{validate_location_df}
 \alias{validate_location_df}
-\title{Validate a location data frame (name, lat, lng columns)}
+\title{Validate a location data frame}
 \usage{
 validate_location_df(df, min_n = 2L)
 }
@@ -12,8 +12,16 @@ validate_location_df(df, min_n = 2L)
 \item{min_n}{Minimum number of rows required (default 2).}
 }
 \value{
-invisible(TRUE) on success; stops with an informative error otherwise.
+\code{invisible(TRUE)} on success; throws an informative error otherwise.
 }
 \description{
-Validate a location data frame (name, lat, lng columns)
+Checks that a data frame is suitable for TSP solving: must have columns
+\code{name}, \code{lat}, \code{lng}, at least \code{min_n} rows, valid
+coordinate ranges, and no NA or empty names.
+}
+\examples{
+df <- data.frame(name = c("Warsaw", "Paris"),
+                 lat  = c(52.23, 48.85),
+                 lng  = c(21.01,  2.35))
+validate_location_df(df)
 }

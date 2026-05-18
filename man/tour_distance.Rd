@@ -12,8 +12,16 @@ tour_distance(tour, dist_mat)
 \item{dist_mat}{Square numeric distance matrix.}
 }
 \value{
-Total distance in km (closed tour: last city returns to first).
+Single numeric value: total tour distance in kilometres.
 }
 \description{
-Uses vectorized matrix indexing — no loop.
+Sums the distances between consecutive cities in the tour, including the
+return leg from the last city back to the first. Uses vectorised matrix
+indexing — no loop.
+}
+\examples{
+lat <- c(52.23, 48.85, 51.51)
+lng <- c(21.01,  2.35,  -0.12)
+dm  <- haversine_matrix(lat, lng)
+tour_distance(c(1L, 2L, 3L), dm)
 }

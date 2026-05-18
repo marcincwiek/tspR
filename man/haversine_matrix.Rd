@@ -2,7 +2,7 @@
 % Please edit documentation in R/distance.R
 \name{haversine_matrix}
 \alias{haversine_matrix}
-\title{Compute a full haversine distance matrix (vectorized)}
+\title{Compute a haversine distance matrix (vectorised R)}
 \usage{
 haversine_matrix(lat, lng)
 }
@@ -12,14 +12,15 @@ haversine_matrix(lat, lng)
 \item{lng}{Numeric vector of longitudes (decimal degrees, -180 to 180).}
 }
 \value{
-Symmetric n x n matrix of distances in kilometres.
+Symmetric n x n numeric matrix of distances in kilometres.
 }
 \description{
-Uses matrix outer products to compute all pairwise great-circle distances
-simultaneously — no R-level loops. This is the vectorisation showcase of the package.
+Calculates pairwise great-circle distances between all locations using
+the haversine formula. The entire computation is vectorised using matrix
+outer products — no R-level loops anywhere.
 }
 \examples{
-lat <- c(52.23, 48.85, 51.51)   # Warsaw, Paris, London
+lat <- c(52.23, 48.85, 51.51)
 lng <- c(21.01,  2.35,  -0.12)
 haversine_matrix(lat, lng)
 }
