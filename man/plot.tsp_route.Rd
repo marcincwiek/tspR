@@ -15,6 +15,5 @@
 \code{x} invisibly.
 }
 \description{
-Draws the cities and the optimised route on a base R scatter plot.
-Green square marks the starting city.
+Plot a TSP route
 }

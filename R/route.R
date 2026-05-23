@@ -38,7 +38,7 @@ new_tsp_route <- function(tour, loc_set, dist_mat, algorithm, elapsed) {
 print.tsp_route <- function(x, ...) {
   names  <- x$loc_set$locations$name
   # Build the route string: A -> B -> C -> A (closed loop)
-  order  <- names[x$tour]
+  order  <- c(names[x$tour], names[x$tour[1]])
   cat("=== TSP Solution ===\n")
   cat("Algorithm :", x$algorithm, "\n")
   cat("Distance  :", round(x$distance, 2), "km\n")
@@ -65,9 +65,9 @@ summary.tsp_route <- function(object, ...) {
   cat(sprintf("%-30s  %8s\n", "Leg", "km"))
   cat(strrep("-", 40), "\n")
 
-  for (i in seq_len(n - 1)) {
+  for (i in seq_len(n)) {
     from  <- tour[i]
-    to    <- tour[i + 1L]
+    to    <- tour[if (i < n) i + 1L else 1L]
     d     <- object$dist_mat[from, to]
     label <- paste(locs$name[from], "->", locs$name[to])
     cat(sprintf("%-30s  %8.2f\n", label, d))
@@ -80,8 +80,6 @@ summary.tsp_route <- function(object, ...) {
 
 #' Plot a TSP route
 #'
-#' Draws the cities and the optimised route on a base R scatter plot.
-#' Green square marks the starting city.
 #'
 #' @param x   A \code{tsp_route} object.
 #' @param ... Passed to \code{plot()}.
@@ -89,7 +87,7 @@ summary.tsp_route <- function(object, ...) {
 #' @export
 plot.tsp_route <- function(x, ...) {
   locs  <- x$loc_set$locations
-  route <- locs[x$tour, ]   # ordered rows, no return leg
+  route <- locs[c(x$tour, x$tour[1]), ]
 
   plot(
     locs$lng, locs$lat,

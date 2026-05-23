@@ -1,10 +1,8 @@
 
 # tspR
 
-<!-- badges: start -->
-<!-- badges: end -->
 
-The goal of tspR is to ...
+The goal of tspR is to find shortest possible route between the points
 
 ## Installation
 
@@ -17,10 +15,10 @@ pak::pak("marcincwiek/tspR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example:
 
 ``` r
 library(tspR)
-## basic example code
+## example code
 ```
 

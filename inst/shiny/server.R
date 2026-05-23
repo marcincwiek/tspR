@@ -107,8 +107,7 @@ server <- function(input, output, session) {
         solver$solve()
       })
     }, error = function(e) {
-      showNotification(paste("Error:", e$message),
-                       type = "error", duration = 5)
+      showNotification(paste("Error:", e$message), type = "error", duration = 5)
       NULL
     })
 
@@ -116,8 +115,7 @@ server <- function(input, output, session) {
 
     route_rv(result)
 
-    # Draw route on map — no return to start
-    ordered <- result$loc_set$locations[result$tour, ]
+    ordered <- result$loc_set$locations[c(result$tour, result$tour[1]), ]
 
     leafletProxy("map") %>%
       clearShapes() %>%
